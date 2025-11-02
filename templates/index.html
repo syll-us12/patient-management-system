@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Health Record System</title>
+    <style>
+        body { font-family: Arial; background: #e8f0fe; padding: 20px; }
+        h2 { color: #004aad; }
+        form { margin-bottom: 20px; }
+        input, select, button {
+            padding: 10px; margin: 5px;
+            border-radius: 6px; border: 1px solid #ccc;
+        }
+        .patient-card {
+            background: white; padding: 15px; border-radius: 8px;
+            margin: 10px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .actions a {
+            margin-right: 10px; text-decoration: none; color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+    <h2>Smart Health Record System</h2>
+
+    <form method="GET" action="/">
+        <input type="text" name="search" placeholder="Search patient by name">
+        <button type="submit">Search</button>
+    </form>
+
+    <form method="POST" action="/add">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="number" name="age" placeholder="Age" required>
+        <select name="gender" required>
+            <option value="">Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+        </select>
+        <input type="text" name="condition" placeholder="Condition" required>
+        <input type="text" name="contact" placeholder="Contact Number" required>
+        <button type="submit">Add Patient</button>
+    </form>
+
+    {% for p in patients %}
+    <div class="patient-card">
+        <b>{{ p[1] }}</b> ({{ p[3] }})<br>
+        Age: {{ p[2] }}<br>
+        Condition: {{ p[4] }}<br>
+        Contact: {{ p[5] }}
+        <div class="actions">
+            <a href="/edit/{{ p[0] }}">Edit</a>
+            <a href="/delete/{{ p[0] }}">Delete</a>
+        </div>
+    </div>
+    {% endfor %}
+</body>
+</html>
